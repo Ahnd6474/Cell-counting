@@ -38,6 +38,7 @@ def build_model(
     replacing the classification head and avoids downloading pretrained
     weights unless explicitly requested via ``pretrained`` or
     ``pretrained_backbone``.
+
     """
 
     try:
@@ -76,6 +77,7 @@ def build_model(
     except Exception:
         model = torchvision.models.detection.ssdlite320_mobilenet_v3_large(  # type: ignore[attr-defined]
             pretrained=False
+
         )
 
     try:
@@ -141,6 +143,7 @@ class CellCountingModel:
             probe_size=self.image_size,
             pretrained=False,
             pretrained_backbone=pretrained_backbone,
+
         ).to(self.device)
         self.model.eval()
 
