@@ -62,7 +62,7 @@ def make_grid_blank_mask(gray, k=25, dilate=3, thr=None):
         se = cv.getStructuringElement(cv.MORPH_RECT, (dilate, dilate))
         mask = cv.dilate(mask, se, iterations=1)
     return mask  # 255 = blank
-def _preprocess_for_detector(pil_img, size):
+def _preprocess_for_detector(pil_img, size, grid_k=25):
     im = np.array(pil_img)
     g  = cv.cvtColor(im, cv.COLOR_RGB2GRAY)
     clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
@@ -72,7 +72,7 @@ def _preprocess_for_detector(pil_img, size):
     g  = cv.subtract(g, bg)
 
     # === ADD: 자동 격자 블랭킹 ===
-    grid_mask = make_grid_blank_mask(g, k=25, dilate=3)  # k는 격자 굵기에 맞춰 조절
+    grid_mask = make_grid_blank_mask(g, k=grid_k, dilate=3)  # k는 격자 굵기에 맞춰 조절
     g[grid_mask > 0] = 0  # 선/교차점 전부 0으로 비움
 
     # 정규화~리사이즈
@@ -105,6 +105,7 @@ def predict_image(
     nms_iou: float = 0.45,
     size_min: Optional[float] = 12.0 * 12.0,
     size_max: Optional[float] = 80.0 * 80.0,
+    grid_blank_k: int = 25,
     draw: bool = False,
     out_path: Optional[PathLike] = None,
     return_image: bool = False,
@@ -126,7 +127,7 @@ def predict_image(
     pil_image = pil_image.convert("RGB")
     original_width, original_height = pil_image.size
 
-    processed = _preprocess_for_detector(pil_image, image_size)
+    processed = _preprocess_for_detector(pil_image, image_size, grid_blank_k)
     tensor = to_tensor(processed).to(device_obj)
     with torch.no_grad():
         prediction = inner_model([tensor])[0]
@@ -202,6 +203,7 @@ def predict_folder(
     nms_iou: float = 0.45,
     size_min: Optional[float] = 12.0 * 12.0,
     size_max: Optional[float] = 80.0 * 80.0,
+    grid_blank_k: int = 25,
 ) -> List[PredictionResult]:
     """Run inference on every supported image file inside ``folder``."""
 
@@ -228,6 +230,7 @@ def predict_folder(
                 nms_iou=nms_iou,
                 size_min=size_min,
                 size_max=size_max,
+                grid_blank_k=grid_blank_k,
                 draw=True,
                 out_path=out_path / "viz" / f"{path.stem}_viz.png",
                 return_image=False,

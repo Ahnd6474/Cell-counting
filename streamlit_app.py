@@ -52,6 +52,10 @@ def main() -> None:
     confidence = st.sidebar.slider(
         "Confidence threshold", min_value=0.05, max_value=0.9, value=0.15, step=0.05
     )
+    grid_blank_k = st.sidebar.slider(
+        "Grid removal size (k)", min_value=5, max_value=51, value=25, step=2,
+        help="Adjust the structuring element size used to blank the grid before inference."
+    )
 
     uploaded = st.file_uploader(
         "Upload an image", type=SUPPORTED_TYPES, accept_multiple_files=False
@@ -86,6 +90,7 @@ def main() -> None:
                 model=model,
                 image_size=getattr(model, "image_size", 640),
                 conf=float(confidence),
+                grid_blank_k=int(grid_blank_k),
                 draw=True,
                 return_image=True,
             )
