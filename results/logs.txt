@@ -1,45 +1,46 @@
 Device: cuda
 Base dir: /kaggle/input/hemocytomer
 Train 160  Val 20  Test 20
-[001] loss=7.4368  val_F1=0.034  val_MAE=201.00  (19.8s)
+[001] loss=1.4273  val_F1=0.000  val_MAE=7.10  (31.0s)
   saved best -> /kaggle/working/models/best.pt
-[002] loss=4.5756  val_F1=0.048  val_MAE=163.95  (18.3s)
+[002] loss=1.0078  val_F1=0.027  val_MAE=6.70  (33.0s)
   saved best -> /kaggle/working/models/best.pt
-[003] loss=3.8666  val_F1=0.063  val_MAE=131.05  (17.8s)
+[003] loss=0.6852  val_F1=0.742  val_MAE=1.30  (32.7s)
   saved best -> /kaggle/working/models/best.pt
-[004] loss=3.5358  val_F1=0.098  val_MAE=83.70  (17.6s)
+[004] loss=0.4499  val_F1=0.843  val_MAE=0.95  (33.7s)
   saved best -> /kaggle/working/models/best.pt
-[005] loss=3.3631  val_F1=0.370  val_MAE=5.00  (18.3s)
+[005] loss=0.3826  val_F1=0.842  val_MAE=1.55  (33.5s)
+[006] loss=0.3275  val_F1=0.726  val_MAE=4.95  (33.3s)
+[007] loss=0.2874  val_F1=0.818  val_MAE=2.30  (33.4s)
+[008] loss=0.2545  val_F1=0.838  val_MAE=2.15  (33.2s)
+[009] loss=0.2438  val_F1=0.845  val_MAE=2.25  (36.1s)
   saved best -> /kaggle/working/models/best.pt
-[006] loss=3.1754  val_F1=0.282  val_MAE=2.20  (17.5s)
-[007] loss=3.0692  val_F1=0.377  val_MAE=3.10  (18.1s)
+[010] loss=0.2531  val_F1=0.900  val_MAE=1.00  (33.6s)
   saved best -> /kaggle/working/models/best.pt
-[008] loss=2.9301  val_F1=0.355  val_MAE=2.40  (18.5s)
-[009] loss=2.8000  val_F1=0.346  val_MAE=2.45  (18.0s)
-[010] loss=2.7231  val_F1=0.379  val_MAE=2.50  (16.5s)
+[011] loss=0.2206  val_F1=0.910  val_MAE=1.05  (33.7s)
   saved best -> /kaggle/working/models/best.pt
-[011] loss=2.6075  val_F1=0.387  val_MAE=2.15  (17.8s)
+[012] loss=0.2010  val_F1=0.876  val_MAE=1.65  (32.5s)
+[013] loss=0.1888  val_F1=0.899  val_MAE=1.25  (33.4s)
+[014] loss=0.1810  val_F1=0.911  val_MAE=1.15  (36.8s)
   saved best -> /kaggle/working/models/best.pt
-[012] loss=2.5561  val_F1=0.377  val_MAE=1.80  (17.7s)
-[013] loss=2.4632  val_F1=0.351  val_MAE=2.15  (17.3s)
-[014] loss=2.4229  val_F1=0.317  val_MAE=2.05  (17.6s)
-[015] loss=2.3520  val_F1=0.350  val_MAE=1.75  (18.4s)
-[016] loss=2.1769  val_F1=0.387  val_MAE=1.70  (17.5s)
-[017] loss=2.1431  val_F1=0.411  val_MAE=1.95  (18.0s)
+[015] loss=0.1670  val_F1=0.897  val_MAE=1.40  (33.1s)
+[016] loss=0.1687  val_F1=0.920  val_MAE=0.90  (33.1s)
   saved best -> /kaggle/working/models/best.pt
-[018] loss=2.0938  val_F1=0.372  val_MAE=2.45  (17.6s)
-[019] loss=2.0734  val_F1=0.342  val_MAE=1.65  (17.8s)
-[020] loss=1.9123  val_F1=0.336  val_MAE=1.90  (16.7s)
-[021] loss=1.8016  val_F1=0.373  val_MAE=2.05  (17.6s)
-[022] loss=1.7867  val_F1=0.395  val_MAE=2.15  (17.3s)
-[023] loss=1.7097  val_F1=0.373  val_MAE=1.60  (18.1s)
-[024] loss=1.6045  val_F1=0.368  val_MAE=2.65  (18.2s)
-[025] loss=1.4799  val_F1=0.394  val_MAE=2.35  (17.4s)
-[026] loss=1.4521  val_F1=0.342  val_MAE=2.05  (17.3s)
-[027] loss=1.3353  val_F1=0.352  val_MAE=2.40  (17.9s)
-[028] loss=1.2366  val_F1=0.378  val_MAE=2.45  (18.2s)
-[029] loss=1.1609  val_F1=0.337  val_MAE=2.55  (18.0s)
-[030] loss=1.0788  val_F1=0.378  val_MAE=2.10  (16.7s)
-FINAL  Val: P=0.446 R=0.380 F1=0.411 MAE=1.95
-FINAL Test: P=0.413 R=0.369 F1=0.390 MAE=1.75
+[017] loss=0.1641  val_F1=0.866  val_MAE=1.85  (33.0s)
+[018] loss=0.1421  val_F1=0.905  val_MAE=1.25  (33.9s)
+[019] loss=0.1370  val_F1=0.906  val_MAE=1.15  (33.3s)
+[020] loss=0.1347  val_F1=0.927  val_MAE=0.90  (33.1s)
+  saved best -> /kaggle/working/models/best.pt
+[021] loss=0.1341  val_F1=0.900  val_MAE=1.35  (33.1s)
+[022] loss=0.1369  val_F1=0.920  val_MAE=1.00  (34.0s)
+[023] loss=0.1371  val_F1=0.900  val_MAE=1.35  (32.8s)
+[024] loss=0.1276  val_F1=0.885  val_MAE=1.50  (33.3s)
+[025] loss=0.1171  val_F1=0.894  val_MAE=1.45  (33.1s)
+[026] loss=0.1194  val_F1=0.914  val_MAE=1.20  (33.2s)
+[027] loss=0.1128  val_F1=0.923  val_MAE=0.95  (33.4s)
+[028] loss=0.1039  val_F1=0.924  val_MAE=1.05  (33.2s)
+[029] loss=0.1054  val_F1=0.900  val_MAE=1.35  (33.0s)
+[030] loss=0.1011  val_F1=0.911  val_MAE=1.15  (33.5s)
+FINAL  Val: P=0.880 R=0.979 F1=0.927 MAE=0.90
+FINAL Test: P=0.908 R=0.986 F1=0.946 MAE=0.60
 Done.

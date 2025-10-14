@@ -1,4 +1,5 @@
 image,gt_count,pred_count
-/kaggle/input/hemocytomer/valid/seq0493_jpg.rf.8fcd51ea63cab4da7fdf63fe3101e637.jpg,8,7
-/kaggle/input/hemocytomer/valid/seq0416_jpg.rf.52f7032f671c518fea2d2f53e049d344.jpg,3,5
-/kaggle/input/hemocytomer/valid/seq0478_jpg.rf.a0b525599c22b2f47f51f70914625b16.jpg,5,6
+/kaggle/input/hemocytomer/valid/seq0493_jpg.rf.8fcd51ea63cab4da7fdf63fe3101e637.jpg,8,8
+/kaggle/input/hemocytomer/valid/seq0416_jpg.rf.52f7032f671c518fea2d2f53e049d344.jpg,3,7
+/kaggle/input/hemocytomer/valid/seq0478_jpg.rf.a0b525599c22b2f47f51f70914625b16.jpg,5,8
+/kaggle/input/hemocytomer/valid/seq0418_jpg.rf.9db8ee53912c7d42d02e7c6535ef13e1.jpg,5,14
