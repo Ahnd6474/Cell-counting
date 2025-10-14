@@ -33,30 +33,44 @@ other projects.
 ## Quickstart
 
 1. Clone the repository and create a virtual environment (recommended).
-2. Activate the environment and install the package locally:
+2. Activate the environment and install the runtime dependencies pinned for the
+   released weights:
 
    ```bash
-   pip install .
+   pip install -r requirements.txt
    ```
 
-3. Obtain the pretrained detector weights (see below) and place them where you
+3. (Optional) Install the package itself for importable helpers:
+
+   ```bash
+   pip install -e .
+   ```
+
+4. Obtain the pretrained detector weights (see below) and place them where you
    intend to load them from (the default is `results/models/best.pt`).
-4. Run the Streamlit demo or call the Python API to verify everything is
+5. Run the Streamlit demo or call the Python API to verify everything is
    working.
 
 ### Installing the package locally
 
 Once `pyproject.toml` is available, `pip` can build and install the package
-straight from the repository root:
+straight from the repository root after the runtime dependencies are installed:
 
 ```bash
 pip install .
 ```
 
-For development you can prefer an editable install:
+For development you can prefer an editable install (after installing
+`requirements.txt`):
 
 ```bash
 pip install -e .
+```
+
+When you need the testing utilities, install the development extras:
+
+```bash
+pip install -r requirements-dev.txt
 ```
 
 ### Pretrained weights
@@ -114,26 +128,35 @@ use the corresponding bitmap capture to mirror real workflows.
 
 ## Streamlit app
 
+The same runtime requirements enable the interactive demo. After installing
+`requirements.txt` and downloading the trained weights, start the app with:
 
-- Preconfigured SSDLite MobileNetV3 model wrapper with weight-loading helpers.
-- Simple `load_model` and `count_cells` APIs for scripted inference on files or
-  Pillow images.
-- Batch prediction utilities that export both CSV summaries and annotated
-  overlays.
-- Streamlit demo that visualises predictions directly in the browser.
+```bash
+streamlit run streamlit_app.py
+```
+
+The interface will prompt you for an image and download-ready annotated output
+once inference finishes.
 
 ## Quickstart
 
 1. Clone the repository and create a virtual environment (recommended).
-2. Activate the environment and install the package locally:
+2. Activate the environment and install the runtime dependencies pinned for the
+   released weights:
 
    ```bash
-   pip install .
+   pip install -r requirements.txt
    ```
 
-3. Obtain the pretrained detector weights (see below) and place them where you
+3. (Optional) Install the package itself for importable helpers:
+
+   ```bash
+   pip install -e .
+   ```
+
+4. Obtain the pretrained detector weights (see below) and place them where you
    intend to load them from (the default is `results/models/best.pt`).
-4. Run the Streamlit demo or call the Python API to verify everything is
+5. Run the Streamlit demo or call the Python API to verify everything is
    working.
 
 ### Installing the package locally
