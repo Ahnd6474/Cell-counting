@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 PathLike = Union[str, Path]
 DeviceLike = Union[str, torch.device]
 
-
+'''
 def _preprocess_for_detector(image: Image.Image, size: int) -> Image.Image:
     """Replicate the preprocessing pipeline from the training notebook."""
 
@@ -36,7 +36,51 @@ def _preprocess_for_detector(image: Image.Image, size: int) -> Image.Image:
     gray = cv.normalize(gray, None, 0, 255, cv.NORM_MINMAX)
     stacked = np.stack([gray, gray, gray], axis=2)
     resized = cv.resize(stacked, (size, size), interpolation=cv.INTER_LINEAR)
-    return Image.fromarray(resized, mode="RGB")
+    return Image.fromarray(resized, mode="RGB")'''
+# --- AUTO GRID BLANKING ---
+def make_grid_blank_mask(gray, k=25, dilate=3, thr=None):
+    """
+    gray: uint8 (0..255), k: 선 길이(격자 굵기에 맞춰 15~35 조절)
+    반환: mask (uint8, 255 = 지울 영역)
+    """
+    # 수평/수직 선 성분 추출(Top-hat)
+    se_h = cv.getStructuringElement(cv.MORPH_RECT, (k, 1))
+    se_v = cv.getStructuringElement(cv.MORPH_RECT, (1, k))
+    th_h = cv.morphologyEx(gray, cv.MORPH_TOPHAT, se_h)
+    th_v = cv.morphologyEx(gray, cv.MORPH_TOPHAT, se_v)
+    line = cv.add(th_h, th_v)
+
+    # 임계값
+    if thr is None:
+        # Otsu (선이 강하면 잘 먹음)
+        _, mask = cv.threshold(line, 0, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
+    else:
+        _, mask = cv.threshold(line, thr, 255, cv.THRESH_BINARY)
+
+    # 확장으로 폭 넓혀 블랭킹
+    if dilate > 0:
+        se = cv.getStructuringElement(cv.MORPH_RECT, (dilate, dilate))
+        mask = cv.dilate(mask, se, iterations=1)
+    return mask  # 255 = blank
+def _preprocess_for_detector(pil_img, size):
+    im = np.array(pil_img)
+    g  = cv.cvtColor(im, cv.COLOR_RGB2GRAY)
+    clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    g  = clahe.apply(g)
+    se_big = cv.getStructuringElement(cv.MORPH_RECT, (41,41))
+    bg = cv.morphologyEx(g, cv.MORPH_OPEN, se_big)
+    g  = cv.subtract(g, bg)
+
+    # === ADD: 자동 격자 블랭킹 ===
+    grid_mask = make_grid_blank_mask(g, k=25, dilate=3)  # k는 격자 굵기에 맞춰 조절
+    g[grid_mask > 0] = 0  # 선/교차점 전부 0으로 비움
+
+    # 정규화~리사이즈
+    g  = cv.normalize(g, None, 0, 255, cv.NORM_MINMAX)
+    im3 = np.stack([g, g, g], axis=2)
+    im3 = cv.resize(im3, (size, size), cv.INTER_LINEAR)
+    return Image.fromarray(im3, mode="RGB")
+
 
 
 def _ensure_path(path: PathLike) -> Path:
