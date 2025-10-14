@@ -5,11 +5,13 @@ import csv
 from pathlib import Path
 from typing import List, Optional, Union, TYPE_CHECKING
 
+import numpy as np
 import torch
 from torch import nn
 from torchvision.ops import nms
 from torchvision.transforms.functional import to_tensor
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFont
+import cv2 as cv
 
 from .model import PredictionResult
 
@@ -18,6 +20,23 @@ if TYPE_CHECKING:
 
 PathLike = Union[str, Path]
 DeviceLike = Union[str, torch.device]
+
+
+def _preprocess_for_detector(image: Image.Image, size: int) -> Image.Image:
+    """Replicate the preprocessing pipeline from the training notebook."""
+
+    rgb = image.convert("RGB")
+    np_image = np.array(rgb)
+    gray = cv.cvtColor(np_image, cv.COLOR_RGB2GRAY)
+    clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    gray = clahe.apply(gray)
+    kernel = cv.getStructuringElement(cv.MORPH_RECT, (41, 41))
+    background = cv.morphologyEx(gray, cv.MORPH_OPEN, kernel)
+    gray = cv.subtract(gray, background)
+    gray = cv.normalize(gray, None, 0, 255, cv.NORM_MINMAX)
+    stacked = np.stack([gray, gray, gray], axis=2)
+    resized = cv.resize(stacked, (size, size), interpolation=cv.INTER_LINEAR)
+    return Image.fromarray(resized, mode="RGB")
 
 
 def _ensure_path(path: PathLike) -> Path:
@@ -60,10 +79,11 @@ def predict_image(
     else:
         pil_image = image
 
-    pil_image = ImageOps.grayscale(pil_image).convert("RGB")
+    pil_image = pil_image.convert("RGB")
+    original_width, original_height = pil_image.size
 
-    resized = pil_image.resize((image_size, image_size), Image.BILINEAR)
-    tensor = to_tensor(resized).to(device_obj)
+    processed = _preprocess_for_detector(pil_image, image_size)
+    tensor = to_tensor(processed).to(device_obj)
     with torch.no_grad():
         prediction = inner_model([tensor])[0]
 
@@ -91,23 +111,38 @@ def predict_image(
             boxes = boxes[keep_area]
             scores = scores[keep_area]
 
+    scaled_boxes = boxes.clone()
+    if scaled_boxes.numel():
+        scale_x = original_width / float(image_size)
+        scale_y = original_height / float(image_size)
+        scaled_boxes[:, [0, 2]] = scaled_boxes[:, [0, 2]] * scale_x
+        scaled_boxes[:, [1, 3]] = scaled_boxes[:, [1, 3]] * scale_y
+
     annotated_image = None
     if draw or return_image or out_path is not None:
-        annotated_image = resized.copy()
+        annotated_image = pil_image.copy()
         draw_ctx = ImageDraw.Draw(annotated_image)
         font = _load_font()
-        for box in boxes:
+        for box in scaled_boxes:
             x1, y1, x2, y2 = [float(v) for v in box]
             draw_ctx.rectangle([x1, y1, x2, y2], outline=(255, 0, 255), width=2)
-        draw_ctx.rectangle([6, 6, 220, 32], fill=(0, 0, 0))
-        draw_ctx.text((10, 10), f"count: {len(boxes)}", fill=(255, 255, 255), font=font)
+        text = f"count: {len(scaled_boxes)}"
+        if hasattr(draw_ctx, "textbbox"):
+            left, top, right, bottom = draw_ctx.textbbox((0, 0), text, font=font)
+            text_width = right - left
+            text_height = bottom - top
+        else:
+            text_width, text_height = draw_ctx.textsize(text, font=font)
+        overlay = [6, 6, 6 + text_width + 8, 6 + text_height + 8]
+        draw_ctx.rectangle(overlay, fill=(0, 0, 0))
+        draw_ctx.text((10, 10), text, fill=(255, 255, 255), font=font)
         if out_path is not None:
             _ensure_path(out_path).parent.mkdir(parents=True, exist_ok=True)
             annotated_image.save(out_path)
 
     return PredictionResult(
-        count=int(len(boxes)),
-        boxes=boxes,
+        count=int(len(scaled_boxes)),
+        boxes=scaled_boxes,
         scores=scores,
         image=annotated_image if (return_image or draw or out_path is not None) else None,
     )

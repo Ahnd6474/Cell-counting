@@ -3,12 +3,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Sequence, Tuple, Union
+from typing import Optional, Tuple, Union
 
 import torch
 from torch import Tensor, nn
 import torchvision
-from torchvision.models.detection.ssdlite import SSDLiteClassificationHead
 
 DeviceLike = Union[str, torch.device]
 PathLike = Union[str, Path]
@@ -30,82 +29,61 @@ def build_model(
     pretrained: bool = False,
     pretrained_backbone: bool = False,
 ) -> nn.Module:
-    """Construct the SSDLite MobileNetV3 detection network.
-
-    The logic mirrors the implementation from the ``hepatocytometer.ipynb``
-    notebook while making it safe to import in CPU-only environments. The
-    function automatically handles version differences in ``torchvision`` when
-    replacing the classification head and avoids downloading pretrained
-    weights unless explicitly requested via ``pretrained`` or
-    ``pretrained_backbone``.
-
-    """
+    """Construct the RetinaNet (ResNet-50 FPN) detector used for training."""
 
     try:
         from torchvision.models.detection import (
-            ssdlite320_mobilenet_v3_large,
-            SSDLite320_MobileNet_V3_Large_Weights,
+            retinanet_resnet50_fpn,
+            RetinaNet_ResNet50_FPN_Weights,
         )
+    except ImportError:  # pragma: no cover - compatibility with older torchvision
+        retinanet_resnet50_fpn = torchvision.models.detection.retinanet_resnet50_fpn  # type: ignore[attr-defined]
+        RetinaNet_ResNet50_FPN_Weights = None  # type: ignore[assignment]
 
-        try:
-            from torchvision.models.mobilenetv3 import MobileNet_V3_Large_Weights
-        except ImportError:  # pragma: no cover - older torchvision releases
-            MobileNet_V3_Large_Weights = None  # type: ignore[assignment]
+    weights = None
+    backbone_weights = None
+    if pretrained and "RetinaNet_ResNet50_FPN_Weights" in locals() and RetinaNet_ResNet50_FPN_Weights is not None:
+        weights = RetinaNet_ResNet50_FPN_Weights.COCO_V1
+    if pretrained_backbone and "RetinaNet_ResNet50_FPN_Weights" in locals() and RetinaNet_ResNet50_FPN_Weights is not None:
+        backbone_weights = RetinaNet_ResNet50_FPN_Weights.COCO_V1
 
-        weights = (
-            SSDLite320_MobileNet_V3_Large_Weights.COCO_V1 if pretrained else None
-        )
-        backbone_weights = None
-        if pretrained_backbone and MobileNet_V3_Large_Weights is not None:
-            backbone_weights = MobileNet_V3_Large_Weights.IMAGENET1K_V1
-
-        model = ssdlite320_mobilenet_v3_large(
+    try:
+        model = retinanet_resnet50_fpn(
             weights=weights,
             weights_backbone=backbone_weights,
-        )
-    except ImportError:
-        model = torchvision.models.detection.ssdlite320_mobilenet_v3_large(  # type: ignore[attr-defined]
-            pretrained=pretrained
-        )
-        if pretrained_backbone:
-            try:
-                model.backbone.body.load_state_dict(torchvision.models.mobilenet_v3_large(  # type: ignore[attr-defined]
-                    pretrained=True
-                ).state_dict())
-            except Exception:
-                pass
-    except Exception:
-        model = torchvision.models.detection.ssdlite320_mobilenet_v3_large(  # type: ignore[attr-defined]
-            pretrained=False
-
-        )
-
-    try:
-        in_channels: Sequence[int] = model.backbone.out_channels  # type: ignore[attr-defined]
-        if isinstance(in_channels, int):
-            in_channels = [in_channels]
-    except Exception:
-        model.eval()
-        with torch.no_grad():
-            dummy = torch.zeros(1, 3, probe_size, probe_size)
-            features = model.backbone(dummy)  # type: ignore[operator]
-            in_channels = [tensor.shape[1] for tensor in features.values()]
-
-    num_anchors = model.anchor_generator.num_anchors_per_location()  # type: ignore[attr-defined]
-
-    try:
-        model.head.classification_head = SSDLiteClassificationHead(
-            in_channels=in_channels,
-            num_anchors=num_anchors,
             num_classes=num_classes,
         )
     except TypeError:
-        model.head.classification_head = SSDLiteClassificationHead(
-            in_channels=in_channels,
-            num_anchors=num_anchors,
-            num_classes=num_classes,
-            norm_layer=nn.BatchNorm2d,
-        )
+        # Older torchvision versions expose a legacy API without ``weights``.
+        kwargs = {"pretrained": bool(pretrained)}
+        model = torchvision.models.detection.retinanet_resnet50_fpn(**kwargs)  # type: ignore[attr-defined]
+        try:
+            from torchvision.models.detection.retinanet import RetinaNetClassificationHead
+        except Exception:  # pragma: no cover - fallback for very old versions
+            RetinaNetClassificationHead = None  # type: ignore[assignment]
+
+        if "RetinaNetClassificationHead" in locals() and RetinaNetClassificationHead is not None:
+            head = model.head.classification_head
+            num_anchors = getattr(head, "num_anchors", 9)
+            try:
+                in_channels = head.conv[0].in_channels  # type: ignore[index]
+            except Exception:  # pragma: no cover - safeguard for older structures
+                in_channels = 256
+            model.head.classification_head = RetinaNetClassificationHead(
+                in_channels,
+                num_anchors,
+                num_classes,
+            )
+        else:  # pragma: no cover - best effort fallback
+            head = model.head.classification_head
+            if hasattr(head, "num_classes"):
+                head.num_classes = num_classes
+
+    try:
+        model.transform.min_size = (probe_size,)
+        model.transform.max_size = probe_size
+    except Exception:  # pragma: no cover - defensive programming
+        pass
 
     return model
 
@@ -143,7 +121,6 @@ class CellCountingModel:
             probe_size=self.image_size,
             pretrained=False,
             pretrained_backbone=pretrained_backbone,
-
         ).to(self.device)
         self.model.eval()
 
