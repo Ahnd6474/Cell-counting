@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cell-counting"
+version = "0.1.0"
+description = "Utilities for loading and running the hemocytometer cell counting model."
+readme = "README.md"
+authors = [{name = "Cell Counting Maintainers"}]
+license = {text = "MIT"}
+requires-python = ">=3.8"
+dependencies = [
+    "torch",
+    "torchvision",
+    "Pillow",
+    "numpy<2",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cell_counting"]
