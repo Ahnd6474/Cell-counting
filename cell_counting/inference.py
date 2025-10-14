@@ -37,44 +37,21 @@ def _preprocess_for_detector(image: Image.Image, size: int) -> Image.Image:
     stacked = np.stack([gray, gray, gray], axis=2)
     resized = cv.resize(stacked, (size, size), interpolation=cv.INTER_LINEAR)
     return Image.fromarray(resized, mode="RGB")'''
-# --- AUTO GRID BLANKING ---
-def make_grid_blank_mask(gray, k=25, dilate=3, thr=None):
-    """
-    gray: uint8 (0..255), k: 선 길이(격자 굵기에 맞춰 15~35 조절)
-    반환: mask (uint8, 255 = 지울 영역)
-    """
-    # 수평/수직 선 성분 추출(Top-hat)
-    se_h = cv.getStructuringElement(cv.MORPH_RECT, (k, 1))
-    se_v = cv.getStructuringElement(cv.MORPH_RECT, (1, k))
-    th_h = cv.morphologyEx(gray, cv.MORPH_TOPHAT, se_h)
-    th_v = cv.morphologyEx(gray, cv.MORPH_TOPHAT, se_v)
-    line = cv.add(th_h, th_v)
-
-    # 임계값
-    if thr is None:
-        # Otsu (선이 강하면 잘 먹음)
-        _, mask = cv.threshold(line, 0, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
-    else:
-        _, mask = cv.threshold(line, thr, 255, cv.THRESH_BINARY)
-
-    # 확장으로 폭 넓혀 블랭킹
-    if dilate > 0:
-        se = cv.getStructuringElement(cv.MORPH_RECT, (dilate, dilate))
-        mask = cv.dilate(mask, se, iterations=1)
-    return mask  # 255 = blank
-def _preprocess_for_detector(pil_img, size, grid_k=25):
+def _preprocess_for_detector(pil_img, size, blank_image=None):
     im = np.array(pil_img)
     g  = cv.cvtColor(im, cv.COLOR_RGB2GRAY)
+    if blank_image is not None:
+        blank_arr = np.array(blank_image.convert("RGB"))
+        blank_gray = cv.cvtColor(blank_arr, cv.COLOR_RGB2GRAY)
+        if blank_gray.shape != g.shape:
+            blank_gray = cv.resize(blank_gray, (g.shape[1], g.shape[0]), interpolation=cv.INTER_LINEAR)
+        g = cv.subtract(g, blank_gray)
+        g = cv.normalize(g, None, 0, 255, cv.NORM_MINMAX)
     clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
     g  = clahe.apply(g)
     se_big = cv.getStructuringElement(cv.MORPH_RECT, (41,41))
     bg = cv.morphologyEx(g, cv.MORPH_OPEN, se_big)
     g  = cv.subtract(g, bg)
-
-    # === ADD: 자동 격자 블랭킹 ===
-    grid_mask = make_grid_blank_mask(g, k=grid_k, dilate=3)  # k는 격자 굵기에 맞춰 조절
-    g[grid_mask > 0] = 0  # 선/교차점 전부 0으로 비움
-
     # 정규화~리사이즈
     g  = cv.normalize(g, None, 0, 255, cv.NORM_MINMAX)
     im3 = np.stack([g, g, g], axis=2)
@@ -105,7 +82,7 @@ def predict_image(
     nms_iou: float = 0.45,
     size_min: Optional[float] = 12.0 * 12.0,
     size_max: Optional[float] = 80.0 * 80.0,
-    grid_blank_k: int = 25,
+    blank_image: Optional[Union[PathLike, Image.Image]] = None,
     draw: bool = False,
     out_path: Optional[PathLike] = None,
     return_image: bool = False,
@@ -127,7 +104,14 @@ def predict_image(
     pil_image = pil_image.convert("RGB")
     original_width, original_height = pil_image.size
 
-    processed = _preprocess_for_detector(pil_image, image_size, grid_blank_k)
+    blank_pil: Optional[Image.Image] = None
+    if blank_image is not None:
+        if isinstance(blank_image, (str, Path)):
+            blank_pil = Image.open(blank_image).convert("RGB")
+        else:
+            blank_pil = blank_image.convert("RGB")
+
+    processed = _preprocess_for_detector(pil_image, image_size, blank_pil)
     tensor = to_tensor(processed).to(device_obj)
     with torch.no_grad():
         prediction = inner_model([tensor])[0]
@@ -203,7 +187,7 @@ def predict_folder(
     nms_iou: float = 0.45,
     size_min: Optional[float] = 12.0 * 12.0,
     size_max: Optional[float] = 80.0 * 80.0,
-    grid_blank_k: int = 25,
+    blank_image: Optional[Union[PathLike, Image.Image]] = None,
 ) -> List[PredictionResult]:
     """Run inference on every supported image file inside ``folder``."""
 
@@ -214,6 +198,13 @@ def predict_folder(
 
     exts = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp"}
     image_paths = [p for p in folder_path.rglob("*") if p.suffix.lower() in exts]
+
+    blank_ref: Optional[Image.Image] = None
+    if blank_image is not None:
+        if isinstance(blank_image, (str, Path)):
+            blank_ref = Image.open(blank_image).convert("RGB")
+        else:
+            blank_ref = blank_image.convert("RGB")
 
     results: List[PredictionResult] = []
     csv_path = out_path / "predict_counts.csv"
@@ -230,7 +221,7 @@ def predict_folder(
                 nms_iou=nms_iou,
                 size_min=size_min,
                 size_max=size_max,
-                grid_blank_k=grid_blank_k,
+                blank_image=blank_ref,
                 draw=True,
                 out_path=out_path / "viz" / f"{path.stem}_viz.png",
                 return_image=False,

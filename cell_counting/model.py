@@ -154,6 +154,7 @@ class CellCountingModel:
         return_image: bool = False,
         draw: bool = False,
         out_path: Optional[PathLike] = None,
+        blank_image: Optional[Union[PathLike, "Image.Image"]] = None,
     ) -> Union[Tuple[int, Tensor], Tuple[int, Tensor, "Image.Image"]]:
         """Count cells within a single image."""
 
@@ -170,6 +171,7 @@ class CellCountingModel:
             nms_iou=nms_iou,
             size_min=size_min,
             size_max=size_max,
+            blank_image=blank_image,
             draw=effective_draw,
             out_path=out_path,
             return_image=return_image,
