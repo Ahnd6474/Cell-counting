@@ -5,7 +5,7 @@ from io import BytesIO
 from pathlib import Path
 
 import streamlit as st
-from PIL import Image
+from PIL import Image, ImageOps
 import torch
 
 from cell_counting import load_model
@@ -64,12 +64,14 @@ def main() -> None:
         return
 
     try:
-        image = Image.open(uploaded).convert("RGB")
+        original_image = Image.open(uploaded)
+        image = ImageOps.grayscale(original_image).convert("RGB")
     except Exception as exc:  # pragma: no cover - user input handling
         st.error(f"Failed to open the uploaded image: {exc}")
         return
 
-    st.image(image, caption="Original image", use_column_width=True)
+    st.image(original_image, caption="Original image", use_column_width=True)
+    st.image(image, caption="Grayscale image", use_column_width=True)
 
     if not run:
         return

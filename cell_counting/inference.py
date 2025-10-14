@@ -9,7 +9,7 @@ import torch
 from torch import nn
 from torchvision.ops import nms
 from torchvision.transforms.functional import to_tensor
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from .model import PredictionResult
 
@@ -56,9 +56,11 @@ def predict_image(
         device_obj = torch.device("cpu") if device is None else torch.device(device)
 
     if isinstance(image, (str, Path)):
-        pil_image = Image.open(image).convert("RGB")
+        pil_image = Image.open(image)
     else:
-        pil_image = image.convert("RGB")
+        pil_image = image
+
+    pil_image = ImageOps.grayscale(pil_image).convert("RGB")
 
     resized = pil_image.resize((image_size, image_size), Image.BILINEAR)
     tensor = to_tensor(resized).to(device_obj)
