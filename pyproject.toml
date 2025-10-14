@@ -14,8 +14,7 @@ dependencies = [
     "torch",
     "torchvision",
     "Pillow",
-    "numpy",
-]
+    "numpy<2",
 
 [tool.setuptools.packages.find]
 where = ["."]

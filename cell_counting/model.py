@@ -28,13 +28,17 @@ def build_model(
     num_classes: int = 2,
     probe_size: int = 320,
     pretrained: bool = False,
+    pretrained_backbone: bool = False,
 ) -> nn.Module:
     """Construct the SSDLite MobileNetV3 detection network.
 
     The logic mirrors the implementation from the ``hepatocytometer.ipynb``
     notebook while making it safe to import in CPU-only environments. The
     function automatically handles version differences in ``torchvision`` when
-    replacing the classification head.
+    replacing the classification head and avoids downloading pretrained
+    weights unless explicitly requested via ``pretrained`` or
+    ``pretrained_backbone``.
+
     """
 
     try:
@@ -43,13 +47,37 @@ def build_model(
             SSDLite320_MobileNet_V3_Large_Weights,
         )
 
+        try:
+            from torchvision.models.mobilenetv3 import MobileNet_V3_Large_Weights
+        except ImportError:  # pragma: no cover - older torchvision releases
+            MobileNet_V3_Large_Weights = None  # type: ignore[assignment]
+
         weights = (
             SSDLite320_MobileNet_V3_Large_Weights.COCO_V1 if pretrained else None
         )
-        model = ssdlite320_mobilenet_v3_large(weights=weights)
-    except Exception:
+        backbone_weights = None
+        if pretrained_backbone and MobileNet_V3_Large_Weights is not None:
+            backbone_weights = MobileNet_V3_Large_Weights.IMAGENET1K_V1
+
+        model = ssdlite320_mobilenet_v3_large(
+            weights=weights,
+            weights_backbone=backbone_weights,
+        )
+    except ImportError:
         model = torchvision.models.detection.ssdlite320_mobilenet_v3_large(  # type: ignore[attr-defined]
             pretrained=pretrained
+        )
+        if pretrained_backbone:
+            try:
+                model.backbone.body.load_state_dict(torchvision.models.mobilenet_v3_large(  # type: ignore[attr-defined]
+                    pretrained=True
+                ).state_dict())
+            except Exception:
+                pass
+    except Exception:
+        model = torchvision.models.detection.ssdlite320_mobilenet_v3_large(  # type: ignore[attr-defined]
+            pretrained=False
+
         )
 
     try:
@@ -113,7 +141,9 @@ class CellCountingModel:
         self.model = build_model(
             num_classes=num_classes,
             probe_size=self.image_size,
-            pretrained=pretrained_backbone,
+            pretrained=False,
+            pretrained_backbone=pretrained_backbone,
+
         ).to(self.device)
         self.model.eval()
 
