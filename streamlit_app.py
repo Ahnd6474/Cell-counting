@@ -5,7 +5,7 @@ from io import BytesIO
 from pathlib import Path
 
 import streamlit as st
-from PIL import Image, ImageOps
+from PIL import Image
 import torch
 
 from cell_counting import load_model
@@ -57,23 +57,14 @@ def main() -> None:
         "Upload an image", type=SUPPORTED_TYPES, accept_multiple_files=False
     )
 
-    run = st.button("Run inference", use_container_width=True, disabled=uploaded is None)
-
     if not uploaded:
         st.info("Upload an image to begin.")
         return
 
     try:
-        original_image = Image.open(uploaded)
-        image = ImageOps.grayscale(original_image).convert("RGB")
+        original_image = Image.open(uploaded).convert("RGB")
     except Exception as exc:  # pragma: no cover - user input handling
         st.error(f"Failed to open the uploaded image: {exc}")
-        return
-
-    st.image(original_image, caption="Original image", use_column_width=True)
-    st.image(image, caption="Grayscale image", use_column_width=True)
-
-    if not run:
         return
 
     with st.spinner("Loading model and running inference..."):
@@ -91,7 +82,7 @@ def main() -> None:
 
         try:
             result = predict_image(
-                image=image,
+                image=original_image,
                 model=model,
                 image_size=getattr(model, "image_size", 640),
                 conf=float(confidence),
@@ -105,13 +96,19 @@ def main() -> None:
     st.success(f"Predicted cell count: {result.count}")
 
     if result.image is not None:
-        st.image(result.image, caption="Annotated detections", use_column_width=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(original_image, caption="Original image", use_column_width=True)
+        with col2:
+            st.image(result.image, caption="Annotated detections", use_column_width=True)
         st.download_button(
             "Download annotated image",
             data=_to_bytes(result.image),
             file_name="cell_counting_result.png",
             mime="image/png",
         )
+    else:
+        st.image(original_image, caption="Original image", use_column_width=True)
 
 
 if __name__ == "__main__":
