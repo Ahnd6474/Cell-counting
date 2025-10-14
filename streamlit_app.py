@@ -52,9 +52,11 @@ def main() -> None:
     confidence = st.sidebar.slider(
         "Confidence threshold", min_value=0.05, max_value=0.9, value=0.15, step=0.05
     )
-    grid_blank_k = st.sidebar.slider(
-        "Grid removal size (k)", min_value=5, max_value=51, value=25, step=2,
-        help="Adjust the structuring element size used to blank the grid before inference."
+    blank_upload = st.sidebar.file_uploader(
+        "Blanking image (optional)",
+        type=SUPPORTED_TYPES,
+        accept_multiple_files=False,
+        help="Upload a blank reference image to subtract before inference.",
     )
 
     uploaded = st.file_uploader(
@@ -70,6 +72,14 @@ def main() -> None:
     except Exception as exc:  # pragma: no cover - user input handling
         st.error(f"Failed to open the uploaded image: {exc}")
         return
+
+    blank_image = None
+    if blank_upload is not None:
+        try:
+            blank_image = Image.open(blank_upload).convert("RGB")
+        except Exception as exc:  # pragma: no cover - user input handling
+            st.error(f"Failed to open the blanking image: {exc}")
+            return
 
     with st.spinner("Loading model and running inference..."):
         try:
@@ -90,7 +100,7 @@ def main() -> None:
                 model=model,
                 image_size=getattr(model, "image_size", 640),
                 conf=float(confidence),
-                grid_blank_k=int(grid_blank_k),
+                blank_image=blank_image,
                 draw=True,
                 return_image=True,
             )
