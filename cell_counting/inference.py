@@ -127,7 +127,12 @@ def predict_image(
             x1, y1, x2, y2 = [float(v) for v in box]
             draw_ctx.rectangle([x1, y1, x2, y2], outline=(255, 0, 255), width=2)
         text = f"count: {len(scaled_boxes)}"
-        text_width, text_height = font.getsize(text)
+        if hasattr(draw_ctx, "textbbox"):
+            left, top, right, bottom = draw_ctx.textbbox((0, 0), text, font=font)
+            text_width = right - left
+            text_height = bottom - top
+        else:
+            text_width, text_height = draw_ctx.textsize(text, font=font)
         overlay = [6, 6, 6 + text_width + 8, 6 + text_height + 8]
         draw_ctx.rectangle(overlay, fill=(0, 0, 0))
         draw_ctx.text((10, 10), text, fill=(255, 255, 255), font=font)
