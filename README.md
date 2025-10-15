@@ -24,18 +24,18 @@ other projects.
 
 ## Quickstart
 
-1. Clone the repository and create a virtual environment (recommended).
-2. Activate the environment and install the runtime dependencies pinned for the
-   released weights:
+1. Clone the repository and switch into the project directory:
+
+   ```bash
+   git clone https://github.com/<your-org>/Cell-counting.git
+   cd Cell-counting
+   ```
+
+2. (Recommended) Create and activate a virtual environment for isolation.
+3. Install the runtime dependencies pinned for the released weights:
 
    ```bash
    pip install -r requirements.txt
-   ```
-
-3. (Optional) Install the package itself for importable helpers:
-
-   ```bash
-   pip install -e .
    ```
 
 4. Obtain the pretrained detector weights (see below) and place them where you
@@ -44,28 +44,6 @@ other projects.
    hemocytometer chamber if you plan to use the background subtraction helper.
 6. Run the Streamlit demo or call the Python API to verify everything is
    working.
-
-### Installing the package locally
-
-Once `pyproject.toml` is available, `pip` can build and install the package
-straight from the repository root after the runtime dependencies are installed:
-
-```bash
-pip install .
-```
-
-For development you can prefer an editable install (after installing
-`requirements.txt`):
-
-```bash
-pip install -e .
-```
-
-When you need the testing utilities, install the development extras:
-
-```bash
-pip install -r requirements-dev.txt
-```
 
 ### Pretrained weights
 
@@ -80,7 +58,7 @@ The examples assume the best-performing weights are stored at
 
 ## Python usage
 
-### Loading the model once
+### Loading the model
 
 ```python
 from cell_counting import load_model
@@ -102,7 +80,7 @@ print(f"Detected {count} cells")
 > raster exemplars in `docs/assets/`; the SVG files only embed the imagery as
 > documentation-friendly previews.
 
-### One-off predictions with caching
+### Inference helpers
 
 ```python
 from cell_counting import count_cells
@@ -123,14 +101,14 @@ When experimenting locally, supplying a matching blank reference frame helps
 remove background artefacts prior to detection. Omit `blank_image` when the
 subtraction step is unnecessary.
 
-### Detailed usage guide
+### Detailed workflow
 
 1. **Prepare weights** &mdash; place the trained RetinaNet checkpoint at
    `results/models/best.pt`. The helper accepts alternative locations via the
    `weights_path` argument if you prefer a custom folder layout.
-2. **Instantiate the wrapper** &mdash; call `load_model()` to build the detector and
-   load the checkpoint. Pass `device="cuda:0"` when a GPU is available or leave
-   it unset to default to CPU.
+2. **Load the model** &mdash; call `load_model()` to build the detector and load the
+   checkpoint. Pass `device="cuda:0"` when a GPU is available or leave it unset
+   to default to CPU.
 3. **(Optional) Calibrate with a blank frame** &mdash; capture an empty
    hemocytometer chamber image and provide it as `blank_image`. The preprocessing
    routine subtracts this reference to attenuate lighting artefacts.
@@ -154,16 +132,18 @@ customisation for overlays and blank-frame preprocessing hooks.
 
 ## Streamlit app
 
-The same runtime requirements enable the interactive demo. After installing
-`requirements.txt` and downloading the trained weights, start the app with:
+The same runtime requirements enable the interactive demo. After installing the
+dependencies and downloading the trained weights, start the app from the
+project root:
 
 ```bash
 streamlit run streamlit_app.py
 ```
 
-The interface will prompt you for an image and download-ready annotated output
-once inference finishes. The app lets you upload hemocytometer imagery, tweak
-confidence thresholds, and inspect detections without writing code.
+The interface guides you through selecting the checkpoint, uploading microscope
+imagery, and downloading annotated results. Within the sidebar you can adjust
+confidence thresholds, toggle blank-frame subtraction, and inspect detection
+counts without writing code.
 
 ## Additional resources
 
