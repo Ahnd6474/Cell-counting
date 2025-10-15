@@ -143,6 +143,21 @@ counts without writing code.
 - `results/` &mdash; a suggested directory layout for storing trained models and
   experiment outputs.
 
+### Model architecture diagram
+
+The repository ships a PlotNeuralNet-based script that renders a RetinaNet
+overview diagram matching the detector configured in
+`cell_counting/model.py`. Generate the `.tex` file (and optionally compile it to
+PDF when `pdflatex` is installed) with:
+
+```bash
+python docs/scripts/render_model_diagram.py --compile
+```
+
+The TikZ source lands in `docs/assets/retinanet_architecture.tex`. If LaTeX is
+available in your environment, the script also tries to create a standalone PDF
+next to the TeX file.
+
 Refer to the [tests](tests/) folder for basic smoke tests that validate the
 package installations and the provided inference utilities.
 
