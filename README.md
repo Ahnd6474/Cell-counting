@@ -1,17 +1,8 @@
 # Cell-counting
  
- Utilities and models for performing automated cell counting using a trained
- SSDLite MobileNetV3 detector.
+Utilities and models for performing automated cell counting using a trained
+SSDLite MobileNetV3 detector.
  
-## Project overview
-
-This repository packages the components used to detect and count cells in
-hemocytometer images. It bundles the trained SSDLite MobileNetV3 detector,
-Python APIs for batch and single-image inference, and an optional Streamlit
-application for interactive experimentation. The code mirrors the original
-`hepatocytometer.ipynb` workflow while making it easy to install and reuse in
-other projects.
-
 ## Project overview
 
 This repository packages the components used to detect and count cells in
@@ -136,91 +127,20 @@ streamlit run streamlit_app.py
 ```
 
 The interface will prompt you for an image and download-ready annotated output
-once inference finishes.
+once inference finishes. The app lets you upload hemocytometer imagery, tweak
+confidence thresholds, and inspect detections without writing code.
 
-## Quickstart
+## Additional resources
 
-1. Clone the repository and create a virtual environment (recommended).
-2. Activate the environment and install the runtime dependencies pinned for the
-   released weights:
+- `hepatocytometer.ipynb` &mdash; the original exploratory notebook that contains
+  the training and evaluation workflow.
+- `docs/` &mdash; documentation assets, including sample images used throughout the
+  README examples.
+- `results/` &mdash; a suggested directory layout for storing trained models and
+  experiment outputs.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. (Optional) Install the package itself for importable helpers:
-
-   ```bash
-   pip install -e .
-   ```
-
-4. Obtain the pretrained detector weights (see below) and place them where you
-   intend to load them from (the default is `results/models/best.pt`).
-5. Run the Streamlit demo or call the Python API to verify everything is
-   working.
-
-### Installing the package locally
-
-Once `pyproject.toml` is available, `pip` can build and install the package
-straight from the repository root:
-
-```bash
-pip install .
-```
-
-For development you can prefer an editable install:
-
-```bash
-pip install -e .
-```
-
-### Pretrained weights
-
-The examples assume the best-performing weights are stored at
-`results/models/best.pt`. If you are starting from a fresh clone:
-
-1. Download the pretrained checkpoint that accompanies the project (for
-   example via an internal artifact store) and save it as `best.pt` inside
-   `results/models/`.
-2. Alternatively, supply a custom path when calling `load_model` or
-   `count_cells` if you keep the weights elsewhere.
-
-## Python usage
-
-### Loading the model once
-
-```python
-from cell_counting import load_model
-
-model = load_model(
-    weights_path="results/models/best.pt",
-    device="cuda:0",  # or "cpu"
-    image_size=640,
-)
-
-count, boxes = model.count_cells("docs/assets/sample_input.jpg")
-print(f"Detected {count} cells")
-```
-
-### One-off predictions with caching
-
-```python
-from cell_counting import count_cells
-
-count, boxes, annotated = count_cells(
-    "docs/assets/sample_input.jpg",
-    weights_path="results/models/best.pt",
-    device="cpu",
-    return_image=True,
-    draw=True,
-)
-annotated.save("prediction.jpg")
-print(f"Predicted {count} cells with {len(boxes)} bounding boxes")
-```
-
-
-The app lets you upload hemocytometer imagery, tweak confidence thresholds, and
-inspect detections without writing code.
+Refer to the [tests](tests/) folder for basic smoke tests that validate the
+package installations and the provided inference utilities.
 
 ## Examples
 
