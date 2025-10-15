@@ -154,7 +154,7 @@ artifacts from the source PNG and keeps the repository reproducible.
 
 | Sample hemocytometer input | Annotated output |
 | --- | --- |
-| ![Sample input](docs/assets/sample_input.svg) | ![Annotated output](docs/assets/sample_output.svg) |
+| ![Sample input](docs/assets/seq0432_jpg.rf.f16687b29f969b08fdc2900f51b3e5d3.jpg) | ![Annotated output](docs/assets/cell_counting_result.png) |
 
 The repository inference helpers (`cell_counting.count_cells` or
 `cell_counting.inference.predict_image`) will recreate the overlay when PyTorch
