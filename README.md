@@ -77,8 +77,8 @@ print(f"Detected {count} cells")
 ```
 
 > **Note:** Use an actual microscope capture (JPG or PNG). The repository ships
-> raster exemplars in `docs/assets/`; the SVG files only embed the imagery as
-> documentation-friendly previews.
+> raster exemplars directly in `docs/assets/` so you can reference the same
+> PNG/JPG examples used throughout the documentation.
 
 ### Inference helpers
 
@@ -159,13 +159,13 @@ package installations and the provided inference utilities.
 
 ## Examples
 
-To stay within the “no binary artifacts in git” guideline, the example assets
-are embedded as base64-encoded PNGs inside the SVG wrappers in
-`docs/assets/`. The input frame below matches the microscope crop supplied for
-this task and the accompanying output shows the resulting overlay. The helper
-script `docs/scripts/generate_examples.py` (which falls back to a lightweight
+The example assets live in `docs/assets/` as conventional JPG and PNG files so
+you can inspect them directly or reuse them in your own experiments. The input
+frame below matches the microscope crop supplied for this task and the
+accompanying output shows the resulting overlay. The helper script
+`docs/scripts/generate_examples.py` (which falls back to a lightweight
 threshold-based segmentation when PyTorch is unavailable) regenerates both
-artifacts from the source PNG and keeps the repository reproducible.
+artifacts from the source imagery and keeps the repository reproducible.
 
 | Sample hemocytometer input | Annotated output |
 | --- | --- |
