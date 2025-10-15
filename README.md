@@ -1,12 +1,12 @@
 # Cell-counting
  
-Utilities and models for performing automated cell counting using a trained
-SSDLite MobileNetV3 detector.
+Utilities and models for performing automated cell counting using the
+RetinaNet (ResNet-50 FPN) detector that powers the production notebooks.
  
 ## Project overview
 
 This repository packages the components used to detect and count cells in
-hemocytometer images. It bundles the trained SSDLite MobileNetV3 detector,
+hemocytometer images. It bundles the trained RetinaNet ResNet-50 FPN detector,
 Python APIs for batch and single-image inference, and an optional Streamlit
 application for interactive experimentation. The code mirrors the original
 `hepatocytometer.ipynb` workflow while making it easy to install and reuse in
@@ -14,7 +14,8 @@ other projects.
 
 ## Features
 
-- Preconfigured SSDLite MobileNetV3 model wrapper with weight-loading helpers.
+- Preconfigured RetinaNet (ResNet-50 FPN) model wrapper with weight-loading
+  helpers.
 - Simple `load_model` and `count_cells` APIs for scripted inference on files or
   Pillow images.
 - Batch prediction utilities that export both CSV summaries and annotated
@@ -23,46 +24,26 @@ other projects.
 
 ## Quickstart
 
-1. Clone the repository and create a virtual environment (recommended).
-2. Activate the environment and install the runtime dependencies pinned for the
-   released weights:
+1. Clone the repository and switch into the project directory:
+
+   ```bash
+   git clone https://github.com/<your-org>/Cell-counting.git
+   cd Cell-counting
+   ```
+
+2. (Recommended) Create and activate a virtual environment for isolation.
+3. Install the runtime dependencies pinned for the released weights:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. (Optional) Install the package itself for importable helpers:
-
-   ```bash
-   pip install -e .
-   ```
-
 4. Obtain the pretrained detector weights (see below) and place them where you
    intend to load them from (the default is `results/models/best.pt`).
-5. Run the Streamlit demo or call the Python API to verify everything is
+5. (Optional) Download a blank reference image captured from an empty
+   hemocytometer chamber if you plan to use the background subtraction helper.
+6. Run the Streamlit demo or call the Python API to verify everything is
    working.
-
-### Installing the package locally
-
-Once `pyproject.toml` is available, `pip` can build and install the package
-straight from the repository root after the runtime dependencies are installed:
-
-```bash
-pip install .
-```
-
-For development you can prefer an editable install (after installing
-`requirements.txt`):
-
-```bash
-pip install -e .
-```
-
-When you need the testing utilities, install the development extras:
-
-```bash
-pip install -r requirements-dev.txt
-```
 
 ### Pretrained weights
 
@@ -77,7 +58,7 @@ The examples assume the best-performing weights are stored at
 
 ## Python usage
 
-### Loading the model once
+### Loading the model
 
 ```python
 from cell_counting import load_model
@@ -88,24 +69,27 @@ model = load_model(
     image_size=640,
 )
 
-count, boxes = model.count_cells("docs/assets/sample_input.svg")
+count, boxes = model.count_cells(
+    "docs/assets/seq0432_jpg.rf.f16687b29f969b08fdc2900f51b3e5d3.jpg",
+    blank_image="path/to/blank_reference.jpg",  # optional user-provided frame
+)
 print(f"Detected {count} cells")
 ```
 
-> **Note:** The packaged SVG is a lightweight illustration; replace the path
-> with an actual microscope capture (for example
-> `docs/assets/sample_input.jpg`) before running the snippet so that Pillow can
-> decode the image.
+> **Note:** Use an actual microscope capture (JPG or PNG). The repository ships
+> raster exemplars in `docs/assets/`; the SVG files only embed the imagery as
+> documentation-friendly previews.
 
-### One-off predictions with caching
+### Inference helpers
 
 ```python
 from cell_counting import count_cells
 
 count, boxes, annotated = count_cells(
-    "docs/assets/sample_input.svg",
+    "docs/assets/seq0432_jpg.rf.f16687b29f969b08fdc2900f51b3e5d3.jpg",
     weights_path="results/models/best.pt",
     device="cpu",
+    blank_image="path/to/blank_reference.jpg",  # optional user-provided frame
     return_image=True,
     draw=True,
 )
@@ -113,22 +97,53 @@ annotated.save("prediction.jpg")
 print(f"Predicted {count} cells with {len(boxes)} bounding boxes")
 ```
 
-When experimenting locally, point the API to a raster image (JPG or PNG).
-Providing the illustrative SVG is handy for documentation, but inference should
-use the corresponding bitmap capture to mirror real workflows.
+When experimenting locally, supplying a matching blank reference frame helps
+remove background artefacts prior to detection. Omit `blank_image` when the
+subtraction step is unnecessary.
+
+### Detailed workflow
+
+1. **Prepare weights** &mdash; place the trained RetinaNet checkpoint at
+   `results/models/best.pt`. The helper accepts alternative locations via the
+   `weights_path` argument if you prefer a custom folder layout.
+2. **Load the model** &mdash; call `load_model()` to build the detector and load the
+   checkpoint. Pass `device="cuda:0"` when a GPU is available or leave it unset
+   to default to CPU.
+3. **(Optional) Calibrate with a blank frame** &mdash; capture an empty
+   hemocytometer chamber image and provide it as `blank_image`. The preprocessing
+   routine subtracts this reference to attenuate lighting artefacts.
+4. **Run inference** &mdash; use `model.count_cells(...)` for repeated predictions on
+   a long-lived model instance. For lightweight scripts, the functional helper
+   `count_cells(...)` accepts the same arguments and handles model caching for
+   you.
+5. **Adjust detection thresholds** &mdash; tweak `conf`, `nms_iou`, `size_min`, and
+   `size_max` to match the expected cell morphology. For example, increase
+   `conf` to reduce false positives or tighten `size_max` when debris is being
+   counted accidentally.
+6. **Export results** &mdash; set `return_image=True` or `out_path="prediction.jpg"`
+   to capture annotated overlays. The raw bounding boxes are returned in image
+   coordinates so that you can post-process them downstream.
+7. **Batch processing** &mdash; call `cell_counting.inference.predict_folder(...)` to
+   sweep an entire directory, saving annotated images and a CSV summary in
+   `out_dir`.
+
+Refer to `cell_counting/inference.py` for additional options, including font
+customisation for overlays and blank-frame preprocessing hooks.
 
 ## Streamlit app
 
-The same runtime requirements enable the interactive demo. After installing
-`requirements.txt` and downloading the trained weights, start the app with:
+The same runtime requirements enable the interactive demo. After installing the
+dependencies and downloading the trained weights, start the app from the
+project root:
 
 ```bash
 streamlit run streamlit_app.py
 ```
 
-The interface will prompt you for an image and download-ready annotated output
-once inference finishes. The app lets you upload hemocytometer imagery, tweak
-confidence thresholds, and inspect detections without writing code.
+The interface guides you through selecting the checkpoint, uploading microscope
+imagery, and downloading annotated results. Within the sidebar you can adjust
+confidence thresholds, toggle blank-frame subtraction, and inspect detection
+counts without writing code.
 
 ## Additional resources
 
