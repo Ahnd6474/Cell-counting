@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06fb4b56-a3ee-4966-a2a7-fd291020e133" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="06fb4b56-a3ee-4966-a2a7-fd291020e133" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +67,7 @@
       <updated>1760444757763</updated>
       <workItem from="1760444760126" duration="2074000" />
       <workItem from="1760453364617" duration="242000" />
-      <workItem from="1760454220861" duration="2451000" />
+      <workItem from="1760454220861" duration="3041000" />
     </task>
     <servers />
   </component>
@@ -77,8 +75,8 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/streamlit_app_py$streamlit_app.coverage" NAME="streamlit_app 커버리지 결과" MODIFIED="1760495740709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/streamlit_app_py$inference.coverage" NAME="inference 커버리지 결과" MODIFIED="1760455321116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cell_counting" />
+    <SUITE FILE_PATH="coverage/streamlit_app_py$streamlit_app.coverage" NAME="streamlit_app 커버리지 결과" MODIFIED="1760495942385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/streamlit_app_py$inference.coverage" NAME="inference 커버리지 결과" MODIFIED="1760496013022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cell_counting" />
     <SUITE FILE_PATH="coverage/Cell_counting$streamlit_app.coverage" NAME="streamlit_app 커버리지 결과" MODIFIED="1760445836881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
