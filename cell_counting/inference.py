@@ -154,7 +154,7 @@ def predict_image(
         font = _load_font()
         for box in scaled_boxes:
             x1, y1, x2, y2 = [float(v) for v in box]
-            draw_ctx.rectangle([x1, y1, x2, y2], outline=(255, 0, 255), width=2)
+            draw_ctx.rectangle([x1, y1, x2, y2], outline=(255, 0, 255), width=8)
         text = f"count: {len(scaled_boxes)}"
         if hasattr(draw_ctx, "textbbox"):
             left, top, right, bottom = draw_ctx.textbbox((0, 0), text, font=font)

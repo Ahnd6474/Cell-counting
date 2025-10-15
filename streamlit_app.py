@@ -111,11 +111,8 @@ def main() -> None:
     st.success(f"Predicted cell count: {result.count}")
 
     if result.image is not None:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.image(original_image, caption="Original image", use_column_width=True)
-        with col2:
-            st.image(result.image, caption="Annotated detections", use_column_width=True)
+
+        st.image(result.image, caption="Annotated detections")
         st.download_button(
             "Download annotated image",
             data=_to_bytes(result.image),
