@@ -45,17 +45,6 @@ other projects.
 6. Run the Streamlit demo or call the Python API to verify everything is
    working.
 
-### Pretrained weights
-
-The examples assume the best-performing weights are stored at
-`results/models/best.pt`. If you are starting from a fresh clone:
-
-1. Download the pretrained checkpoint that accompanies the project (for
-   example via an internal artifact store) and save it as `best.pt` inside
-   `results/models/`.
-2. Alternatively, supply a custom path when calling `load_model` or
-   `count_cells` if you keep the weights elsewhere.
-
 ## Python usage
 
 ### Loading the model
