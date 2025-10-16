@@ -1,7 +1,7 @@
 
 \documentclass[border=8pt, multi, tikz]{standalone} 
 \usepackage{import}
-\subimport{/workspace/Cell-counting/docs/plot_neural_net/layers/}{init}
+\subimport{C:/Users/ahnd6/OneDrive/문서/GitHub/Cell-counting/docs/plot_neural_net/layers/}{init}
 \usetikzlibrary{positioning}
 \usetikzlibrary{3d} %for including external image 
 
@@ -21,7 +21,7 @@
 \tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
 \tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
 
-\node[canvas is zy plane at x=0] (input) at (-5,0,0) {\includegraphics[width=5cm,height=5cm]{/workspace/Cell-counting/docs/assets/cell_counting_result.png}};
+\node[canvas is zy plane at x=0] (input) at (-5,0,0) {\includegraphics[width=5cm,height=5cm]{C:/Users/ahnd6/OneDrive/문서/GitHub/Cell-counting/docs/assets/cell_counting_result.png}};
 
 \pic[shift={(0,0,0)}] at (0,0,0) 
     {Box={
