@@ -3,7 +3,7 @@
 Utilities and models for automated cell counting with the RetinaNet
 (ResNet-50 FPN) detector that powers the production notebooks.
 
-![Annotated cell counting example](docs/assets/cell_counting_result.png){width=50%}
+<img src="docs/assets/cell_counting_result.png" alt="Annotated cell counting example" width="400">
 
 ## Project overview
 
