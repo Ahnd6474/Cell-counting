@@ -5,6 +5,22 @@ Utilities and models for automated cell counting with the RetinaNet
 
 <img src="docs/assets/cell_counting_result.png" alt="Annotated cell counting example" width="400">
 
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/python-3.9%2B-blue.svg?style=flat-square"></a>
+  <a href="#"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
+</p>
+
+## 📑 Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Quickstart](#quickstart)
+- [Python Usage](#python-usage)
+  - [Loading the Model](#loading-the-model)
+  - [Inference Helpers](#inference-helpers)
+  - [Detailed Workflow](#detailed-workflow)
+- [Streamlit App](#streamlit-app)
+- [Additional Resources](#additional-resources)
+- [Evaluation](#evaluation)
 ## Project overview
 
 This repository contains everything needed to detect and count cells in
