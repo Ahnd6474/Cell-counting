@@ -143,6 +143,21 @@ counts without writing code.
 - `results/` &mdash; a suggested directory layout for storing trained models and
   experiment outputs.
 
+## TODO
+
+### UI interface _(assigned to S.Yeon)_
+
+- [ ] Provide an entry point to choose between a live microscope feed and an
+      imported image for cell counting.
+- [ ] Integrate direct interpretation from a connected microscope adapter.
+- [ ] Enable real-time region selection while viewing the microscope feed.
+- [ ] Invoke the counting model and present a fixed annotated image along with
+      the predicted count (no live overlay required).
+- [ ] Allow users to add or remove bounding boxes and update the cell count
+      interactively.
+- [ ] Support exporting the analysed image, mirroring the workflow for imported
+      images.
+
 ### Model architecture diagram
 
 The repository ships a PlotNeuralNet-based script that renders a RetinaNet
