@@ -1,15 +1,17 @@
 # Cell-counting
  
-Utilities and models for performing automated cell counting using the
-RetinaNet (ResNet-50 FPN) detector that powers the production notebooks.
- 
+Utilities and models for automated cell counting with the RetinaNet
+(ResNet-50 FPN) detector that powers the production notebooks.
+
+![Annotated cell counting example](docs/assets/cell_counting_result.png)
+
 ## Project overview
 
-This repository packages the components used to detect and count cells in
+This repository contains everything needed to detect and count cells in
 hemocytometer images. It bundles the trained RetinaNet ResNet-50 FPN detector,
-Python APIs for batch and single-image inference, and an optional Streamlit
-application for interactive experimentation. The code mirrors the original
-`hepatocytometer.ipynb` workflow while making it easy to install and reuse in
+Python APIs for batch and single-image inference, and a Streamlit application
+for interactive experimentation. The code mirrors the original
+`hepatocytometer.ipynb` workflow while remaining easy to install and reuse in
 other projects.
 
 ## Features
@@ -24,26 +26,25 @@ other projects.
 
 ## Quickstart
 
-1. Clone the repository and switch into the project directory:
+1. Clone the repository and move into the project directory.
 
    ```bash
    git clone https://github.com/<your-org>/Cell-counting.git
    cd Cell-counting
    ```
 
-2. (Recommended) Create and activate a virtual environment for isolation.
-3. Install the runtime dependencies pinned for the released weights:
+2. (Recommended) Create and activate a virtual environment.
+3. Install the runtime dependencies pinned for the released weights.
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Obtain the pretrained detector weights (see below) and place them where you
-   intend to load them from (the default is `results/models/best.pt`).
-5. (Optional) Download a blank reference image captured from an empty
-   hemocytometer chamber if you plan to use the background subtraction helper.
-6. Run the Streamlit demo or call the Python API to verify everything is
-   working.
+4. Download the pretrained detector weights (see below) and place them in
+   `results/models/best.pt` or another preferred path.
+5. (Optional) Capture a blank hemocytometer frame if you intend to use the
+   background subtraction helper.
+6. Run the Streamlit demo or call the Python API to confirm everything works.
 
 ## Python usage
 
@@ -65,9 +66,8 @@ count, boxes = model.count_cells(
 print(f"Detected {count} cells")
 ```
 
-> **Note:** Use an actual microscope capture (JPG or PNG). The repository ships
-> raster exemplars directly in `docs/assets/` so you can reference the same
-> PNG/JPG examples used throughout the documentation.
+> **Note:** Use an actual microscope capture (JPG or PNG). Raster exemplars in
+> `docs/assets/` match the samples referenced throughout this README.
 
 ### Inference helpers
 
@@ -143,6 +143,14 @@ counts without writing code.
 - `results/` &mdash; a suggested directory layout for storing trained models and
   experiment outputs.
 
+## Evaluation
+
+Validation results bundled with the repository show that the detector predicts
+counts very close to the ground truth. Across three validation frames, the
+model recorded a mean absolute error of 1.33 cells (median 1, maximum 2). In
+total it predicted 18 cells against 16 labelled cells. Per-image details are
+available in `results/report_val.csv`.
+
 ## TODO
 
 ### UI interface _(assigned to S.Yeon)_
@@ -196,11 +204,3 @@ is available. In environments where the heavy dependencies cannot be installed,
 the regeneration script resorts to intensity-based segmentation to draw
 bounding boxes so that the documentation remains illustrative.
 
-
-## Evaluation
-
-Validation results bundled with the repository show the detector remains close
-to ground-truth counts: across three validation frames the model attains a mean
-absolute error of 1.33 cells (median 1, maximum 2) while predicting 18 cells
-versus 16 labelled cells overall. See `results/report_val.csv` for the full
-per-image breakdown.
