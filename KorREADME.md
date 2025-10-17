@@ -2,7 +2,7 @@
 
 RetinaNet(ResNet-50 FPN) 검출기를 활용해 자동으로 세포를 세는 데 필요한 유틸리티와 모델을 제공합니다. 이 저장소는 운영 환경에서 사용되는 노트북에 전력을 공급하는 구성 요소를 정리한 것입니다.
 
-![주석이 추가된 셀 카운팅 예시](docs/assets/cell_counting_result.png)
+![주석이 추가된 셀 카운팅 예시](docs/assets/cell_counting_result.png)[width=50%]
 
 ## 프로젝트 개요
 
