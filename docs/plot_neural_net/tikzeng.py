@@ -1,14 +1,21 @@
 
 import os
 
+
+def _detokenize_path(path: str) -> str:
+    """Return a TeX-safe representation of ``path`` using ``\detokenize``."""
+
+    normalized = path.replace("\\", "/")
+    return r"\detokenize{" + normalized + "}"
+
 def to_head( projectpath ):
-    pathlayers = os.path.join( projectpath, 'layers/' ).replace('\\', '/')
+    pathlayers = _detokenize_path(os.path.join(projectpath, 'layers/'))
     return r"""
-\documentclass[border=8pt, multi, tikz]{standalone} 
+\documentclass[border=8pt, multi, tikz]{standalone}
 \usepackage{import}
 \subimport{"""+ pathlayers + r"""}{init}
 \usetikzlibrary{positioning}
-\usetikzlibrary{3d} %for including external image 
+\usetikzlibrary{3d} %for including external image
 """
 
 def to_cor():
@@ -36,8 +43,9 @@ def to_begin():
 # layers definition
 
 def to_input( pathfile, to='(-3,0,0)', width=8, height=8, name="temp" ):
+    safe_path = _detokenize_path(pathfile)
     return r"""
-\node[canvas is zy plane at x=0] (""" + name + """) at """+ to +""" {\includegraphics[width="""+ str(width)+"cm"+""",height="""+ str(height)+"cm"+"""]{"""+ pathfile +"""}};
+\node[canvas is zy plane at x=0] (""" + name + """) at """+ to +""" {\includegraphics[width="""+ str(width)+"cm"+""",height="""+ str(height)+"cm"+"""]{"""+ safe_path +"""}};
 """
 
 # Conv

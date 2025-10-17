@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import shutil
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -25,12 +26,13 @@ from plot_neural_net import (  # noqa: E402
 )
 
 
-def build_architecture(project_path: Path, assets_path: Path) -> List[str]:
+def build_architecture(project_path: Path, assets_path: Path, output_dir: Path) -> List[str]:
     """Return the TikZ commands describing the RetinaNet model."""
 
-    image_path = assets_path / "cell_counting_result.png"
+    image_path = Path(os.path.relpath(assets_path / "cell_counting_result.png", output_dir))
+    layers_root = os.path.relpath(project_path, output_dir)
     arch: List[str] = [
-        to_head(str(project_path)),
+        to_head(layers_root),
         to_cor(),
         to_begin(),
         to_input(str(image_path).replace("\\", "/"), to="(-5,0,0)", width=5, height=5, name="input"),
@@ -167,7 +169,7 @@ def main() -> None:
     project_path = Path(__file__).resolve().parents[1] / "plot_neural_net"
     assets_path = Path(__file__).resolve().parents[1] / "assets"
 
-    architecture = build_architecture(project_path, assets_path)
+    architecture = build_architecture(project_path, assets_path, output_dir)
 
     tex_path = output_dir / "retinanet_architecture.tex"
     to_generate(architecture, str(tex_path))
