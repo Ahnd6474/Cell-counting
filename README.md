@@ -14,7 +14,7 @@ Utilities and models for automated cell counting with the RetinaNet
 
 ### UI interface _(assigned to S.Yeon)_
 
-- [ ] Provide an entry point to choose between a live microscope feed and an
+- [x] Provide an entry point to choose between a live microscope feed and an
       imported image for cell counting.
 - [ ] Integrate direct interpretation from a connected microscope adapter.
 - [ ] Enable real-time region selection while viewing the microscope feed.
