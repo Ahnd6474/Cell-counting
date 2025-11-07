@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.29)  15 OCT 2025 22:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.29)  17 OCT 2025 20:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./docs/assets/retinanet_architecture.tex
-(docs/assets/retinanet_architecture.tex
+**./retinanet_architecture.tex
+(retinanet_architecture.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 
@@ -403,1010 +403,162 @@ File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/latex/import\import.sty
 Package: import 2020/04/01  v 6.2
 )
-! Missing endcsname inserted.
-<to be read again> 
-                   MessageBreak 
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Argument of __file_name_expand_cleanup:Nw has an extra }.
-<inserted text> 
-                par 
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-
-Runaway argument?
-MessageBreak Try adding noexpand UseRawInputEncoding as the first linETC.
-! Paragraph ended before __file_name_expand_cleanup:Nw was complete.
-<to be read again> 
-                   par 
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
+(../plot_neural_net/layers/init.tex
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen193
+\pgfarrowlength=\dimen194
+\pgfarrowwidth=\dimen195
+\pgfarrowlinewidth=\dimen196
+)
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(../plot_neural_net/layers/Ball.sty
+
+LaTeX Warning: You have requested package `../plot_neural_net/layers/Ball',
+               but the package provides `Ball'.
+
+Package: Ball 
+) (../plot_neural_net/layers/Box.sty
+
+LaTeX Warning: You have requested package `../plot_neural_net/layers/Box',
+               but the package provides `Box'.
+
+Package: Box 
+) (../plot_neural_net/layers/RightBandedBox.sty
+
+LaTeX Warning: You have requested package `../plot_neural_net/layers/RightBande
+dBox',
+               but the package provides `RightBandedBox'.
+
+Package: RightBandedBox 
+))
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count285
+\l__pdf_internal_box=\box63
+) (retinanet_architecture.aux)
+\openout1 = `retinanet_architecture.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count286
+\scratchdimen=\dimen197
+\scratchbox=\box64
+\nofMPsegments=\count287
+\nofMParguments=\count288
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count289
+\MPscratchDim=\dimen198
+\MPnumerator=\count290
+\makeMPintoPDFobject=\count291
+\everyMPtoPDFconversion=\toks32
+)
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\ahnd6\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 58.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 58.
+
+Overfull \hbox (1.68118pt too wide) in paragraph at lines 90--90
+ [][][]\OT1/cmr/bx/n/10 Box[] 
+ []
+
+
+Overfull \hbox (1.68118pt too wide) in paragraph at lines 90--90
+ [][][]\OT1/cmr/bx/n/10 Box[] 
+ []
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
+Overfull \hbox (1.68118pt too wide) in paragraph at lines 90--90
+ [][][]\OT1/cmr/bx/n/10 Box[] 
+ []
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
-
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
+Overfull \hbox (1.68118pt too wide) in paragraph at lines 90--90
+ [][][]\OT1/cmr/bx/n/10 Box[] 
+ []
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
+Overfull \hbox (1.68118pt too wide) in paragraph at lines 90--90
+ [][][]\OT1/cmr/bx/n/10 Box[] 
+ []
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
+! Package pgf Error: No shape named `C1-north west' is known.
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
+See the pgf package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
                                                   
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
+l.93 \node[anchor=south west] at ($(C1-north west)
+                                                  +(-0.6,9.5)$) {\Large Reti...
+This error message was generated by an \errmessage
+command, so I can't give any explicit help.
+Pretend that you're Hercule Poirot: Examine all clues,
+and deduce the truth by order and method.
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-If you say, e.g., `\def\a1{...}', then you must always
-put `1' after `\a', since control sequence names are
-made up of letters only. The macro here has not been
-followed by the required stuff, so I'm ignoring it.
+[1
 
-! Use of ??? doesn't match its definition.
-<argument> ???  
-                ! LaTeX Error: Missing \endcsname inserted in filename.
-l.4 ...ounting/docs/plot_neural_net/layers/}{init}
-                                                  
-(That makes 100 errors; please try again.) 
+{C:/Users/ahnd6/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+(retinanet_architecture.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-04>
+ ***********
+ ) 
 Here is how much of TeX's memory you used:
- 11713 strings out of 474486
- 248618 string characters out of 5743755
- 1924542 words of memory out of 5000000
- 33827 multiletter control sequences out of 15000+600000
- 558069 words of font info for 36 fonts, out of 8000000 for 9000
+ 17054 strings out of 474486
+ 371848 string characters out of 5743755
+ 2116542 words of memory out of 5000000
+ 39116 multiletter control sequences out of 15000+600000
+ 558974 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 117i,0n,121p,440b,90s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 117i,11n,121p,428b,1311s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/ahnd6/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Users/ahnd6/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmr12.pfb><C:/Users/ahnd6/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmr7.pfb>
+Output written on retinanet_architecture.pdf (1 page, 44584 bytes).
+PDF statistics:
+ 24 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-!  ==> Fatal error occurred, no output PDF file produced!
