@@ -5,3 +5,4 @@ torch==2.0.1
 torchvision==0.15.2
 streamlit==1.32.2
 opencv-python-headless==4.9.0.80
+streamlit-drawable-canvas==0.9.3
