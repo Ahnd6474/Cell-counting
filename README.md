@@ -114,7 +114,9 @@ streamlit run streamlit_app.py
 
 Use the sidebar to select checkpoints, upload microscope imagery, adjust
 thresholds, toggle blank-frame subtraction, and download annotated results
-without writing code.
+without writing code. The interface also lets you switch between live capture
+and local files, crop a region of interest before running inference, tweak the
+predicted bounding boxes, and immediately recalculate the resulting cell count.
 
 ## Additional resources
 
