@@ -159,6 +159,122 @@ def _extract_active_boxes(rows: Sequence[Dict[str, object]], width: int, height:
     return active
 
 
+def _list_sample_frames() -> List[Path]:
+    if not SAMPLE_FEED_DIR.exists():
+        return []
+    return sorted(
+        [p for p in SAMPLE_FEED_DIR.rglob("*") if p.suffix.lower().lstrip(".") in SUPPORTED_TYPES]
+    )
+
+
+def _load_uploaded_image(uploaded) -> Optional[Image.Image]:  # type: ignore[override]
+    if uploaded is None:
+        return None
+    try:
+        return Image.open(uploaded).convert("RGB")
+    except Exception as exc:  # pragma: no cover - user input handling
+        st.error(f"Failed to open the provided image: {exc}")
+        return None
+
+
+def _canvas_rectangles(canvas_json: Optional[Dict]) -> List[Dict[str, float]]:
+    if not canvas_json:
+        return []
+    rectangles: List[Dict[str, float]] = []
+    for obj in canvas_json.get("objects", []):
+        if obj.get("type") != "rect":
+            continue
+        rectangles.append(
+            {
+                "left": float(obj.get("left", 0.0)),
+                "top": float(obj.get("top", 0.0)),
+                "width": float(obj.get("width", 0.0)),
+                "height": float(obj.get("height", 0.0)),
+            }
+        )
+    return rectangles
+
+
+def _crop_roi(image: Image.Image, rect: Dict[str, float]) -> Tuple[Image.Image, Box]:
+    width, height = image.size
+    x1 = max(int(rect["left"]), 0)
+    y1 = max(int(rect["top"]), 0)
+    x2 = min(int(rect["left"] + rect["width"]), width)
+    y2 = min(int(rect["top"] + rect["height"]), height)
+    if x2 <= x1 or y2 <= y1:
+        return image, (0.0, 0.0, float(width), float(height))
+    return image.crop((x1, y1, x2, y2)), (float(x1), float(y1), float(x2), float(y2))
+
+
+def _normalise_box(box: Box, width: int, height: int) -> Optional[Box]:
+    x1, y1, x2, y2 = box
+    x1 = max(0.0, min(float(width), x1))
+    x2 = max(0.0, min(float(width), x2))
+    y1 = max(0.0, min(float(height), y1))
+    y2 = max(0.0, min(float(height), y2))
+    if x2 <= x1 or y2 <= y1:
+        return None
+    return (x1, y1, x2, y2)
+
+
+def _annotate_image(image: Image.Image, boxes: Iterable[Box]) -> Image.Image:
+    annotated = image.copy()
+    draw_ctx = ImageDraw.Draw(annotated)
+    boxes_list = [
+        (float(box[0]), float(box[1]), float(box[2]), float(box[3]))
+        for box in boxes
+    ]
+    for box in boxes_list:
+        x1, y1, x2, y2 = box
+        draw_ctx.rectangle([x1, y1, x2, y2], outline=(255, 0, 255), width=6)
+    count_text = f"count: {len(boxes_list)}"
+    if hasattr(draw_ctx, "textbbox"):
+        left, top, right, bottom = draw_ctx.textbbox((0, 0), count_text)
+        text_width = right - left
+        text_height = bottom - top
+    else:  # pragma: no cover - Pillow < 8 compatibility
+        text_width, text_height = draw_ctx.textsize(count_text)
+    overlay = [6, 6, 6 + text_width + 12, 6 + text_height + 12]
+    draw_ctx.rectangle(overlay, fill=(0, 0, 0))
+    draw_ctx.text((12, 12), count_text, fill=(255, 255, 255))
+    return annotated
+
+
+def _prepare_box_editor_data(boxes: Sequence[Box]) -> List[Dict[str, object]]:
+    return [
+        {
+            "id": idx + 1,
+            "x1": round(float(box[0]), 2),
+            "y1": round(float(box[1]), 2),
+            "x2": round(float(box[2]), 2),
+            "y2": round(float(box[3]), 2),
+            "active": True,
+            "source": "model",
+        }
+        for idx, box in enumerate(boxes)
+    ]
+
+
+def _extract_active_boxes(rows: Sequence[Dict[str, object]], width: int, height: int) -> List[Box]:
+    active: List[Box] = []
+    for row in rows:
+        if not row:
+            continue
+        if not row.get("active", True):
+            continue
+        try:
+            x1 = float(row.get("x1", 0))
+            y1 = float(row.get("y1", 0))
+            x2 = float(row.get("x2", 0))
+            y2 = float(row.get("y2", 0))
+        except (TypeError, ValueError):
+            continue
+        normalised = _normalise_box((x1, y1, x2, y2), width, height)
+        if normalised is not None:
+            active.append(normalised)
+    return active
+
+
 def main() -> None:
     st.set_page_config(page_title="Cell Counting", page_icon="🧫", layout="centered")
     st.title("Cell Counting Demo")
@@ -179,8 +295,6 @@ def main() -> None:
         help="Upload a blank reference image to subtract before inference.",
     )
 
-    # uploaded = st.file_uploader(
-    #     "Upload an image", type=SUPPORTED_TYPES, accept_multiple_files=False
     st.subheader("Input selection")
     input_mode = st.radio(
         "Choose how to provide imagery",
@@ -188,17 +302,9 @@ def main() -> None:
         horizontal=True,
     )
 
-    # if not uploaded:
-    #     st.info("Upload an image to begin.")
-    #     return
     original_image: Optional[Image.Image] = None
     image_label = "uploaded"
 
-    # try:
-    #     original_image = Image.open(uploaded).convert("RGB")
-    # except Exception as exc:  # pragma: no cover - user input handling
-    #     st.error(f"Failed to open the uploaded image: {exc}")
-    #     return
     if input_mode == "Upload image":
         uploaded = st.file_uploader(
             "Upload an image", type=SUPPORTED_TYPES, accept_multiple_files=False
@@ -289,6 +395,37 @@ def main() -> None:
         else:
             st.caption("No region selected; analysing the full frame.")
 
+    roi_info: Optional[Tuple[Image.Image, Box]] = None
+    st.subheader("Region of interest")
+    enable_roi = st.toggle(
+        "Enable region selection",
+        value=False,
+        help="Draw a rectangle on the frame to analyse only a specific area.",
+    )
+
+    inference_image = original_image
+    if enable_roi and original_image is not None:
+        canvas_result = st_canvas(
+            fill_color="rgba(255, 0, 255, 0.2)",
+            stroke_width=3,
+            stroke_color="#ff00ff",
+            background_image=original_image,
+            height=original_image.height,
+            width=original_image.width,
+            drawing_mode="rect",
+            key=f"roi_canvas_{image_label}",
+            update_streamlit=True,
+        )
+        rectangles = _canvas_rectangles(canvas_result.json_data)
+        if rectangles:
+            cropped, roi_box = _crop_roi(original_image, rectangles[-1])
+            inference_image = cropped
+            roi_info = (cropped, roi_box)
+            st.caption("Using the highlighted region for inference.")
+            st.image(cropped, caption="Selected region", use_column_width=True)
+        else:
+            st.caption("No region selected; analysing the full frame.")
+
     with st.spinner("Loading model and running inference..."):
         try:
             model = get_model(device)
@@ -322,19 +459,9 @@ def main() -> None:
 
     st.success(f"Predicted cell count: {result.count}")
 
-    if result.image is not None:
     annotated_source = result.image or inference_image
     image_digest = hashlib.md5(_to_bytes(annotated_source)).hexdigest()
 
-    #     st.image(result.image, caption="Annotated detections")
-    #     st.download_button(
-    #         "Download annotated image",
-    #         data=_to_bytes(result.image),
-    #         file_name="cell_counting_result.png",
-    #         mime="image/png",
-    #     )
-    # else:
-    #     st.image(original_image, caption="Original image", use_column_width=True)
     st.subheader("Review detections")
     st.image(annotated_source, caption="Model detections", use_column_width=True)
 
