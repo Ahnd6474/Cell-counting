@@ -17,15 +17,15 @@ RetinaNet(ResNet-50 FPN) 검출기를 활용해 자동으로 세포를 세는 �
 
 ### UI interface _(assigned to S.Yeon)_
 
-- [ ] Provide an entry point to choose between a live microscope feed and an
+- [x] Provide an entry point to choose between a live microscope feed and an
       imported image for cell counting.
-- [ ] Integrate direct interpretation from a connected microscope adapter.
-- [ ] Enable real-time region selection while viewing the microscope feed.
-- [ ] Invoke the counting model and present a fixed annotated image along with
+- [x] Integrate direct interpretation from a connected microscope adapter.
+- [x] Enable real-time region selection while viewing the microscope feed.
+- [x] Invoke the counting model and present a fixed annotated image along with
       the predicted count (no live overlay required).
-- [ ] Allow users to add or remove bounding boxes and update the cell count
+- [x] Allow users to add or remove bounding boxes and update the cell count
       interactively.
-- [ ] Support exporting the analysed image, mirroring the workflow for imported
+- [x] Support exporting the analysed image, mirroring the workflow for imported
       images.
 
 ## 📑 Table of Contents / 목차
@@ -139,7 +139,9 @@ streamlit run streamlit_app.py
 
 Use the sidebar to select checkpoints, upload microscope imagery, adjust
 thresholds, toggle blank-frame subtraction, and download annotated results
-without writing code.
+without writing code. The interface also lets you switch between live capture
+and local files, crop a region of interest before running inference, tweak the
+predicted bounding boxes, and immediately recalculate the resulting cell count.
 
 사이드바에서 체크포인트 선택, 현미경 이미지 업로드, 임계값 조정, 빈 프레임
 보정 토글, 주석 결과 다운로드까지 코드를 작성하지 않고 진행할 수
